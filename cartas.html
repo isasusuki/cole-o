@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coleção de Cartas - CollectorApp</title>
+  <style>
+    body {
+      margin:0;
+      font-family:'Georgia',serif;
+      background:#0d0d0d url('mapa-antigo-textura.jpg') no-repeat fixed;
+      background-size:cover;
+      color:#d4af37;
+    }
+
+    header {
+      padding:20px;
+      background-color:rgba(13,13,13,0.9);
+      text-align:center;
+    }
+
+    .logo {
+      height:60px;
+    }
+
+    h1 {
+      text-align:center;
+      margin:30px 0;
+      font-size:2em;
+      border-bottom:1px solid #d4af37;
+      padding-bottom:10px;
+    }
+
+    .itens {
+      max-width:1000px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .card {
+      background:#1a1a1a;
+      border:1px solid #d4af37;
+      border-radius:10px;
+      text-align:center;
+      padding:15px;
+      box-shadow:0 0 10px rgba(212,175,55,0.3);
+
+      /* 🔑 Padronização de tamanho */
+      width:250px;
+      height:420px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .card img {
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-bottom:1px solid #d4af37;
+      margin-bottom:10px;
+    }
+
+    .card h3 {
+      margin:10px 0;
+    }
+
+    .card p {
+      margin:5px 0;
+      font-size:0.95em;
+    }
+
+    .btn {
+      display:inline-block;
+      margin:5px;
+      padding:8px 15px;
+      background:#d4af37;
+      color:#0d0d0d;
+      border-radius:8px;
+      font-weight:bold;
+      cursor:pointer;
+      text-decoration:none;
+      transition:background-color 0.3s;
+    }
+
+    .btn:hover {
+      background:#b38e2e;
+    }
+
+    .add {
+      text-align:center;
+      margin-top:20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo CollectorApp" class="logo">
+  </header>
+
+  <h1>Coleção de Cartas Colecionáveis</h1>
+
+  <div class="itens" id="listaCartas"></div>
+
+  <div class="add">
+    <a href="formulario.html" class="btn">Adicionar Novo Item</a>
+    <a href="index.html" class="btn">← Voltar às coleções</a>
+  </div>
+
+  <script>
+    function carregarItens(){
+      let itens = JSON.parse(localStorage.getItem("colecao_carta")) || [];
+
+      // exemplos iniciais se não houver nada salvo
+      if(itens.length === 0){
+        itens = [
+          {
+            nome: "Carta Rara",
+            ano: "1995",
+            origem: "Japão",
+            material: "Papel laminado",
+            estado: "Excelente",
+            caracteristicas: "Edição limitada com selo dourado.",
+            imagem: "carta1.jpg"
+          },
+          {
+            nome: "Carta Especial",
+            ano: "2001",
+            origem: "Brasil",
+            material: "Papel offset com acabamento metálico",
+            estado: "Bom",
+            caracteristicas: "Pertence à série dourada, lançada em tiragem limitada.",
+            imagem: "carta2.jpg"
+          },
+          {
+            nome: "Carta Lendária",
+            ano: "2010",
+            origem: "Estados Unidos",
+            material: "Papel holográfico",
+            estado: "Muito bom",
+            caracteristicas: "Única no Brasil, considerada peça rara e altamente desejada.",
+            imagem: "carta3.jpg"
+          }
+        ];
+        localStorage.setItem("colecao_carta", JSON.stringify(itens));
+      }
+
+      const lista = document.getElementById("listaCartas");
+      lista.innerHTML = "";
+      itens.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        // se tiver imagem base64 ou arquivo, usa; senão, placeholder
+        const imgSrc = item.imagem ? item.imagem : "carta-placeholder.jpg";
+
+        card.innerHTML = `
+          <img src="${imgSrc}" alt="${item.nome}">
+          <h3>${item.nome}</h3>
+          <p><strong>Ano:</strong> ${item.ano}</p>
+          <p><strong>Origem:</strong> ${item.origem}</p>
+          <p><strong>Material:</strong> ${item.material}</p>
+          <p><strong>Estado:</strong> ${item.estado}</p>
+          <p><strong>Características:</strong> ${item.caracteristicas}</p>
+          <button class="btn" onclick="removerItem(${index})">Remover</button>
+        `;
+        lista.appendChild(card);
+      });
+    }
+
+    function removerItem(index){
+      let itens = JSON.parse(localStorage.getItem("colecao_carta")) || [];
+      itens.splice(index,1);
+      localStorage.setItem("colecao_carta", JSON.stringify(itens));
+      carregarItens();
+    }
+
+    carregarItens();
+  </script>
+</body>
+</html>

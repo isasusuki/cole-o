@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - CollectorApp</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #0d0d0d;
+      color: #d4af37;
+      background-image: url('mapa-antigo-textura.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: rgba(13,13,13,0.9);
+    }
+
+    .logo {
+      height: 60px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: rgba(13,13,13,0.85);
+      border: 2px solid #d4af37;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(212,175,55,0.4);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2em;
+      border-bottom: 1px solid #d4af37;
+      padding-bottom: 10px;
+    }
+
+    .colecoes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #1a1a1a;
+      border: 1px solid #d4af37;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(212,175,55,0.5);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #d4af37;
+      color: #0d0d0d;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #b38e2e;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(13,13,13,0.9);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo CollectorApp" class="logo">
+    <nav>
+      <ul>
+        <li><a href="index.html">Minhas Coleções</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="login.html">Sair</a></li>
+        <li><a href="comunidade.html"> Comunidade</a></li>
+        <li><a href="desejos.html"> Desejos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="dashboard">
+    <h1>Minhas Coleções</h1>
+    <div class="colecoes">
+      <!-- Exemplo de coleção -->
+      <div class="card">
+        <h3>Moedas Antigas</h3>
+        <p>3 itens registrados</p>
+        <a href="moedas.html" class="btn">Ver detalhes</a>
+      </div>
+
+      <div class="card">
+        <h3>Selos Raros</h3>
+        <p>3 itens registrados</p>
+        <a href="selos.html" class="btn">Ver detalhes</a>
+      </div>
+
+      <div class="card">
+        <h3>Cartas Colecionáveis</h3>
+        <p>3 itens registrados</p>
+        <a href="cartas.html" class="btn">Ver detalhes</a>
+      </div>
+
+      <div class="card">
+        <h3>Miniaturas</h3>
+        <p>3 itens registrados</p>
+        <a href="miniatura.html" class="btn">Ver detalhes</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 CollectorApp. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>

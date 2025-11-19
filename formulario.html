@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adicionar Item - CollectorApp</title>
+  <style>
+    body { margin:0; font-family:'Georgia',serif; background:#0d0d0d url('mapa-antigo-textura.jpg') no-repeat fixed; background-size:cover; color:#d4af37; }
+    .container { max-width:600px; margin:60px auto; padding:30px; background:rgba(13,13,13,0.85); border:2px solid #d4af37; border-radius:15px; box-shadow:0 0 20px rgba(212,175,55,0.4); }
+    h2 { text-align:center; margin-bottom:20px; border-bottom:1px solid #d4af37; padding-bottom:10px; }
+    label { display:block; margin-top:15px; font-weight:bold; }
+    input, textarea, select { width:100%; padding:12px; margin-top:5px; border:1px solid #d4af37; border-radius:8px; background:#1a1a1a; color:#d4af37; }
+    .btn { margin-top:20px; width:100%; padding:14px; background:#d4af37; color:#0d0d0d; border:none; border-radius:8px; font-weight:bold; cursor:pointer; transition:background-color 0.3s; }
+    .btn:hover { background:#b38e2e; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Adicionar Item à Coleção</h2>
+
+    <form id="formItem">
+      <label for="colecao">Coleção</label>
+      <select id="colecao" name="colecao" required>
+        <option value="moeda">Moedas</option>
+        <option value="selo">Selos</option>
+        <option value="carta">Cartas</option>
+        <option value="miniatura">Miniaturas</option>
+      </select>
+
+      <label for="nome">Nome do objeto</label>
+      <input type="text" id="nome" name="nome" required />
+
+      <label for="ano">Ano de criação</label>
+      <input type="text" id="ano" name="ano" required />
+
+      <label for="origem">Origem</label>
+      <input type="text" id="origem" name="origem" />
+
+      <label for="material">Material</label>
+      <input type="text" id="material" name="material" />
+
+      <label for="estado">Estado de conservação</label>
+      <input type="text" id="estado" name="estado" />
+
+      <label for="caracteristicas">Características adicionais</label>
+      <textarea id="caracteristicas" name="caracteristicas" rows="4"></textarea>
+
+      <label for="imagem">Imagem (opcional)</label>
+      <input type="file" id="imagem" name="imagem" accept="image/*" />
+
+      <button type="submit" class="btn">Salvar Item</button>
+    </form>
+  </div>
+
+  <script>
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) return resolve(null);
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    document.getElementById("formItem").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const colecao = document.getElementById("colecao").value; // moeda | selo | carta | miniatura
+      const nome = document.getElementById("nome").value.trim();
+      const ano = document.getElementById("ano").value.trim();
+      const origem = document.getElementById("origem").value.trim();
+      const material = document.getElementById("material").value.trim();
+      const estado = document.getElementById("estado").value.trim();
+      const caracteristicas = document.getElementById("caracteristicas").value.trim();
+      const imagemFile = document.getElementById("imagem").files[0];
+
+      const imagemBase64 = await fileToBase64(imagemFile);
+
+      const item = { nome, ano, origem, material, estado, caracteristicas, imagem: imagemBase64 };
+
+      // chave no localStorage padronizada
+      const chave = "colecao_" + colecao; 
+      const itens = JSON.parse(localStorage.getItem(chave)) || [];
+      itens.push(item);
+      localStorage.setItem(chave, JSON.stringify(itens));
+
+      alert("Item adicionado com sucesso à coleção de " + colecao + "!");
+      // redireciona para a página específica
+      window.location.href = colecao + ".html"; // moeda.html, selo.html, carta.html, miniatura.html
+    });
+  </script>
+</body>
+</html>

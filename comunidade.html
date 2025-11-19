@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidade - CollectorApp</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #0d0d0d;
+      color: #d4af37;
+      background-image: url('mapa-antigo-textura.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: rgba(13,13,13,0.9);
+    }
+
+    .logo {
+      height: 60px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .comunidade {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: rgba(13,13,13,0.85);
+      border: 2px solid #d4af37;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(212,175,55,0.4);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2em;
+      border-bottom: 1px solid #d4af37;
+      padding-bottom: 10px;
+    }
+
+    .post {
+      background-color: #1a1a1a;
+      border: 1px solid #d4af37;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .post h3 {
+      margin: 0 0 10px;
+    }
+
+    .post p {
+      margin: 0 0 15px;
+    }
+
+    .post img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #d4af37;
+      color: #0d0d0d;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #b38e2e;
+    }
+
+    .novo-post {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #1a1a1a;
+      border: 1px solid #d4af37;
+      border-radius: 10px;
+    }
+
+    .novo-post label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .novo-post input, .novo-post textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #d4af37;
+      border-radius: 8px;
+      background-color: #0d0d0d;
+      color: #d4af37;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(13,13,13,0.9);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo CollectorApp" class="logo">
+    <nav>
+      <ul>
+        <li><a href="index.html">Minhas Coleções</a></li>
+        <li><a href="desejos.html">Lista de Desejos</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="comunidade.html">Comunidade</a></li>
+        <li><a href="index.html">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="comunidade">
+    <h1>Comunidade de Colecionadores</h1>
+
+    <!-- Formulário para novo post -->
+    <div class="novo-post">
+      <h3>Compartilhe sua coleção</h3>
+      <form>
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" placeholder="Ex: Minha coleção de moedas raras">
+
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" name="descricao" rows="4" placeholder="Conte sobre sua coleção..."></textarea>
+
+        <label for="imagem">Imagem</label>
+        <input type="file" id="imagem" name="imagem">
+
+        <button type="submit" class="btn">Publicar</button>
+      </form>
+    </div>
+
+    <!-- Exemplo de posts da comunidade -->
+    <div class="post">
+      <h3>Moedas Antigas</h3>
+      <img src="moedas-comunidade.jpg" alt="Moedas compartilhadas">
+      <p>Compartilhando algumas moedas raras que encontrei em feiras de antiguidades.</p>
+      <a href="#" class="btn">Curtir</a>
+      <a href="#" class="btn">Comentar</a>
+    </div>
+
+    <div class="post">
+      <h3>Selos Históricos</h3>
+      <img src="selos-comunidade.jpg" alt="Selos compartilhados">
+      <p>Minha coleção de selos históricos, incluindo peças de 1900.</p>
+      <a href="#" class="btn">Curtir</a>
+      <a href="#" class="btn">Comentar</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 CollectorApp. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>

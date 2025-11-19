@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Desejos - CollectorApp</title>
+  <style>
+    body {
+      margin:0;
+      font-family:'Georgia',serif;
+      background:#0d0d0d url('mapa-antigo-textura.jpg') no-repeat fixed;
+      background-size:cover;
+      color:#d4af37;
+    }
+
+    header {
+      padding:20px;
+      background-color:rgba(13,13,13,0.9);
+      text-align:center;
+    }
+
+    .logo {
+      height:60px;
+    }
+
+    h1 {
+      text-align:center;
+      margin:30px 0;
+      font-size:2em;
+      border-bottom:1px solid #d4af37;
+      padding-bottom:10px;
+    }
+
+    .itens {
+      max-width:1000px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .card {
+      background:#1a1a1a;
+      border:1px solid #d4af37;
+      border-radius:10px;
+      text-align:center;
+      padding:15px;
+      box-shadow:0 0 10px rgba(212,175,55,0.3);
+    }
+
+    .card h3 {
+      margin:10px 0;
+    }
+
+    .card p {
+      margin:5px 0;
+      font-size:0.95em;
+    }
+
+    .btn {
+      display:inline-block;
+      margin:5px;
+      padding:8px 15px;
+      background:#d4af37;
+      color:#0d0d0d;
+      border-radius:8px;
+      font-weight:bold;
+      cursor:pointer;
+      text-decoration:none;
+      transition:background-color 0.3s;
+    }
+
+    .btn:hover {
+      background:#b38e2e;
+    }
+
+    .add {
+      text-align:center;
+      margin-top:20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo CollectorApp" class="logo">
+  </header>
+
+  <h1>Minha Lista de Desejos</h1>
+
+  <div class="itens" id="listaDesejos"></div>
+
+  <div class="add">
+    <a href="index.html" class="btn">← Voltar às coleções</a>
+  </div>
+
+  <script>
+    // exemplos iniciais de desejos
+    const exemplosDesejos = [
+      {
+        nome: "Carta Rara",
+        ano: "1995",
+        origem: "Japão",
+        material: "Papel laminado",
+        estado: "Excelente",
+        caracteristicas: "Edição limitada com selo dourado.",
+        colecao: "cartas"
+      },
+      {
+        nome: "Moeda Romana",
+        ano: "120 d.C.",
+        origem: "Império Romano",
+        material: "Bronze",
+        estado: "Bom",
+        caracteristicas: "Moeda usada no reinado de Adriano.",
+        colecao: "moedas"
+      },
+      {
+        nome: "Selo Olímpico",
+        ano: "1984",
+        origem: "Estados Unidos",
+        material: "Papel fosco",
+        estado: "Muito bom",
+        caracteristicas: "Emitido para os Jogos Olímpicos de Los Angeles.",
+        colecao: "selos"
+      },
+      {
+        nome: "Miniatura Carro Clássico",
+        ano: "1975",
+        origem: "Estados Unidos",
+        material: "Metal fundido",
+        estado: "Excelente",
+        caracteristicas: "Escala 1:64, réplica fiel de carro clássico.",
+        colecao: "miniaturas"
+      }
+    ];
+
+    // se não houver lista salva, cria com exemplos
+    if(!localStorage.getItem("lista_desejos")){
+      localStorage.setItem("lista_desejos", JSON.stringify(exemplosDesejos));
+    }
+
+    function carregarDesejos(){
+      let desejos = JSON.parse(localStorage.getItem("lista_desejos")) || [];
+      const lista = document.getElementById("listaDesejos");
+      lista.innerHTML = "";
+      desejos.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h3>${item.nome}</h3>
+          <p><strong>Ano:</strong> ${item.ano}</p>
+          <p><strong>Origem:</strong> ${item.origem}</p>
+          <p><strong>Material:</strong> ${item.material}</p>
+          <p><strong>Estado:</strong> ${item.estado}</p>
+          <p><strong>Características:</strong> ${item.caracteristicas}</p>
+          <button class="btn" onclick="obterItem(${index})">Obtido</button>
+        `;
+        lista.appendChild(card);
+      });
+    }
+
+    function obterItem(index){
+      let desejos = JSON.parse(localStorage.getItem("lista_desejos")) || [];
+      const item = desejos[index];
+
+      // adiciona o item na coleção correspondente
+      let colecao = JSON.parse(localStorage.getItem("colecao_"+item.colecao)) || [];
+      colecao.push(item);
+      localStorage.setItem("colecao_"+item.colecao, JSON.stringify(colecao));
+
+      // remove da lista de desejos
+      desejos.splice(index,1);
+      localStorage.setItem("lista_desejos", JSON.stringify(desejos));
+
+      carregarDesejos();
+      alert("Item obtido! Agora está na coleção de " + item.colecao);
+    }
+
+    carregarDesejos();
+  </script>
+</body>
+</html>
